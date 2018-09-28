@@ -2,7 +2,11 @@
   "name": "nodejs-web-crawling",
   "version": "1.0.0",
   "description": "This is a demo repository using NodeJS for web crawling",
-  "author": "Jean Paul González <muecke.jpg@gmail.com>",
+  "author": "Jean Paul González <muecke.jpg@gmail.com>", 
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
     "puppeteer": "^1.8.0",
