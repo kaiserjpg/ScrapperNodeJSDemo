@@ -1,16 +1,20 @@
 const rp = require('request-promise');
+const $ = require('cheerio');
 const fs = require('fs');
-
-let exports = module.exports = {};
 
 exports.execute = function () {
     const url = 'https://en.wikipedia.org/wiki/List_of_Presidents_of_the_United_States';
     
-    rp(url)
+    return rp(url)
       .then(function(html){
         //success!
-        console.log(html);
-        return html;
+        const dom = $.load(html);
+        const wikiUrls = [];
+        for (let i = 0; i < dom('big > a').length; i++) {
+            wikiUrls.push(dom('big > a')[i].attribs.href);
+        }
+        console.log(wikiUrls);
+        resolve(wikiUrls);
       })
       .catch(function(err) {
         //handle error
@@ -18,7 +22,7 @@ exports.execute = function () {
 };
 
 exports.toJSON = function (data) {
-    var json = JSON.stringify(data || {});
+    var json = JSON.stringify(data);
 
     fs.writeFile('output.json', json, 'utf8', catchToJSON);
 }; 

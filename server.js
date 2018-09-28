@@ -7,5 +7,4 @@ http.createServer(function (req, res) {
     res.write('Hello World!');
 }).listen(8080);
 
-const data = scraper.execute();
-scraper.toJSON(data);
+scraper.execute().then( data => scraper.toJSON(data));
